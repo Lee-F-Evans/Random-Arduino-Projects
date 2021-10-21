@@ -1,21 +1,22 @@
 #define PWM 9
-#define Q1 7
+#define Vin 6
+#define Charge 7
 
 void setup() {
 pinMode(PWM,OUTPUT);
-pinMode(Q1,OUTPUT);
+pinMode(Charge,OUTPUT);
+pinMode(Vin, INPUT);
 
+
+Serial.begin(115200);
+
+
+digitalWrite(Charge,LOW);
 analogWrite(PWM,0);
 }
 
 void loop() {
-  analogWrite(PWM, 250);
-  digitalWrite(Q1,HIGH);
-  delay(2000);
-  analogWrite(PWM, 125);
-  digitalWrite(Q1,LOW);
-  delay(2000);
-  analogWrite(PWM, 0);
-  digitalWrite(Q1,HIGH);
-  delay(2000);  
+  Serial.print((float(analogRead(Vin))/1024)*5);
+  Serial.print("\n");
+  delay(1500);  
 }
